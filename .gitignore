@@ -1,0 +1,10 @@
+*.lock
+*.log
+/RemoteSystemsTempFiles
+/webtalk
+
+
+
+*/**/Debug
+*/**/Release
+/.metadata
