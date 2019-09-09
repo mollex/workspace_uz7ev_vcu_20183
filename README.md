@@ -153,14 +153,14 @@ Current hardware bitstream for UltraZed-EV does not include any capture port by 
 
 ```$ v4l2-ctl --list-devices  ``` 
 
-```vivid (platform:vivid-000):
-	/dev/video
-	/dev/video1
-	/dev/radio0
-	/dev/radio1
-	/dev/vbi0
-	/dev/vbi1
-	/dev/swradio0```
+    vivid (platform:vivid-000):
+    /dev/video
+    /dev/video1
+    /dev/radio0
+    /dev/radio1
+    /dev/vbi0
+    /dev/vbi1
+    /dev/swradio0
 
 ```$ ./v4l2_capture_raw.elf -o  -m -f -c 10 ``` 
 
