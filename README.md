@@ -49,16 +49,17 @@ right click on Project Explorer -> Import -> General -> Existings Project Into W
 - **vcu-omx-encoder** - omx encoder application
 - **vcu-omx-decoder** - omx decoder application
 
+- **v4l2_capture_raw** - video capture application
 
 ### Prepare board
 
 Images were taken by the  R. Jason Moss [blog post](https://www.element14.com/community/community/designcenter/zedboardcommunity/ultrazed/ultrazed-ev/blog/2019/07/09/ultrazed-ev-io-carrier-card-vcu-design-example-v20183)
 
-- clone repository **avnet-uzev-ports**
-- copy files from *avnet-uzev-ports/rdf0428-uz7ev-vcu-trd-2018-3/images/vcu_uz7ev_cc/*  to *SD/* card
+- download bins from dropbox [files](https://www.dropbox.com/sh/5t0dag4momczk0j/AADh7vHkb0LU07Et-9y4ecYha?dl=0)
+- copy files from *dropbox/images/*  to *SD/* card
 - load linux *root:root*
 - connect to ethernet
-- set correct IP Address 
+- set correct IP Address ( ```$ ifconfig eth0 up && ifconfig eth0 192.168.33.2 netmask 255.255.0.0 ```)
 - prepare and connect WinSCP.exe by SFTP for copying files to target
 
 
@@ -134,4 +135,39 @@ Copy both to Host and play with VLC media Player.
 
 In folder /home will appear two files **drop_omx264.yuv** and **drop_omx265.yuv** files.
 Copy both to Host and play with YUV Player.
+
+----------
+
+**Test v4l2_capture_raw**
+
+Current hardware bitstream for UltraZed-EV does not include any capture port by that reason I have prepared virtual video source module **vivid.ko**. 
+
+- copy *dropbox/module/vivid.ko*  to */home* card
+- copy *v4l2_capture_raw/Debug/v4l2_capture_raw.elf*  to */home*
+
+
+```$ cd /home ``` 
+```$ chmod +x ./v4l2_capture_raw.elf.elf ``` 
+
+```$ insmod vivid.ko ``` 
+
+```$ v4l2-ctl --list-devices  ``` 
+
+```vivid (platform:vivid-000):
+	/dev/video
+	/dev/video1
+	/dev/radio0
+	/dev/radio1
+	/dev/vbi0
+	/dev/vbi1
+	/dev/swradio0```
+
+```$ ./v4l2_capture_raw.elf -o  -m -f -c 10 ``` 
+
+Files will appear in the folder */home*. Copy to host and open with YUV viewer.  
+Settings of files: YUV420 planar NV12 1280*720 
+
+![PRJ](info/yuv_viewer.png) 
+
+
 
