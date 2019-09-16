@@ -51,6 +51,12 @@ right click on Project Explorer -> Import -> General -> Existings Project Into W
 
 - **v4l2_capture_raw** - video capture application
 
+- **drmlib** - xilinx DRM/KMS library
+- **drmdemo** - DRM demo application
+- **drmkmsdemo** - KMS demo application
+
+
+
 ### Prepare board
 
 Images were taken by the  R. Jason Moss [blog post](https://www.element14.com/community/community/designcenter/zedboardcommunity/ultrazed/ultrazed-ev/blog/2019/07/09/ultrazed-ev-io-carrier-card-vcu-design-example-v20183)
@@ -143,11 +149,11 @@ Copy both to Host and play with YUV Player.
 Current hardware bitstream for UltraZed-EV does not include any capture port by that reason I have prepared virtual video source module **vivid.ko**. 
 
 - copy *dropbox/module/vivid.ko*  to */home* card
-- copy *v4l2_capture_raw/Debug/v4l2_capture_raw.elf*  to */home*
+- copy *v4l2_capture_raw/Debug/v4l2_capture_raw_debug.elf*  to */home*
 
 
 ```$ cd /home ``` 
-```$ chmod +x ./v4l2_capture_raw.elf.elf ``` 
+```$ chmod +x ./v4l2_capture_raw_debug.elf ``` 
 
 ```$ insmod vivid.ko ``` 
 
@@ -169,5 +175,36 @@ Settings of files: YUV420 planar NV12 1280*720
 
 ![PRJ](info/yuv_viewer.png) 
 
+----------
 
+**Test drmdemo**
 
+Connect monitor to DP UltraZed-EV. 
+
+- copy *drmdemo/Debug/drmdemo_debug.elf*  to */home* card
+
+```$ cd /home ``` 
+
+```$ chmod +x ./drmdemo_debug.elf ``` 
+
+```$ ./drmdemo_debug.elf ``` 
+
+wait ~10 sec, default path display device /dev/dri/card0
+
+![PRJ](info/drmdemo.jpg) 
+
+----------
+
+**Test drmkmsdemo**
+
+Connect monitor to DP UltraZed-EV. 
+
+- copy *drmkmsdemo/Debug/drmkmsdemo_debug.elf*  to */home* card
+
+```$ cd /home ``` 
+
+```$ chmod +x ./drmkmsdemo_debug.elf ``` 
+
+```$ ./drmkmsdemo_debug.elf /dev/dri/card0 ``` 
+
+![PRJ](info/drmkmsdemo.jpg) 
